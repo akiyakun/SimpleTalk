@@ -4,5 +4,10 @@
   "displayName": "SimpleTalk",
   "unity": "6000.1",
   "description": "SimpleTalk",
-  "hideInEditor": false
+  "hideInEditor": false,
+  "dependencies": {
+    "com.unity.addressables": "1.21.0",
+    "com.cysharp.unitask": "2.1.0",
+    "com.annulusgames.lit-motion": "1.0.0"
+  }
 }
