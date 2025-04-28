@@ -1,0 +1,18 @@
+{
+    "name": "com.akiyakun.simpletalk.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:d8748807e759843fa9a52d678c7c5100"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [
+        "Editor"
+    ],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
