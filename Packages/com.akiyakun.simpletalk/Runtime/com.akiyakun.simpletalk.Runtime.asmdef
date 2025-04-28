@@ -1,3 +1,14 @@
 {
-	"name": "com.akiyakun.simpletalk.Runtime"
+    "name": "com.akiyakun.simpletalk.Runtime",
+    "rootNamespace": "SimpleTalk",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

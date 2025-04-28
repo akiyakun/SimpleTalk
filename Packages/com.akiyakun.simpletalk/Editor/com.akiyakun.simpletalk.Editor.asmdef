@@ -1,6 +1,6 @@
 {
     "name": "com.akiyakun.simpletalk.Editor",
-    "rootNamespace": "",
+    "rootNamespace": "SimpleTalk.Editor",
     "references": [
         "GUID:d8748807e759843fa9a52d678c7c5100"
     ],
