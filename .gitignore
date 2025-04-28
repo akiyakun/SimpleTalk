@@ -1,8 +1,11 @@
+# v1.2.4
+
+###################################################################################################
+# 公式の.gitignoreのコピー
 # This .gitignore file should be placed at the root of your Unity project directory
 #
-# Get latest from https://github.com/github/gitignore/blob/main/Unity.gitignore
+# Get latest from https://github.com/github/gitignore/blob/master/Unity.gitignore
 #
-.utmp/
 /[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/
@@ -15,8 +18,8 @@
 # They also could contain extremely sensitive data
 /[Mm]emoryCaptures/
 
-# Recordings can get excessive in size
-/[Rr]ecordings/
+# Asset meta data should only be ignored when the corresponding asset is also ignored
+!/[Aa]ssets/**/*.meta
 
 # Uncomment this line if you wish to ignore the asset store tools plugin
 # /[Aa]ssets/AssetStoreTools*
@@ -60,8 +63,6 @@ sysinfo.txt
 *.apk
 *.aab
 *.unitypackage
-*.unitypackage.meta
-*.app
 
 # Crashlytics generated file
 crashlytics-build.properties
@@ -72,3 +73,56 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+###################################################################################################
+
+###################################################################################################
+# 追加設定
+# !/**/*.gitignore
+
+# Unity
+## アセットにオプションとして含まれる場合が多々あるため除外しないほうがよいかも？
+!*.unitypackage
+## Addressable
+/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/OSX.meta
+/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/OSX
+/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/Windows.meta
+/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/Windows
+
+# OS generated
+# Windows
+ehthumbs.db
+Thumbs.db
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+#Icon?
+
+# VSCode
+/.vscode/
+*.code-workspace
+
+# VisualStudio
+.vsconfig
+
+# Package
+# ローカルフォルダに入れ子で.gitignoreを作成してください
+# /[Pp]ackages/
+# !/[Pp]ackages/manifest.json
+# !/[Pp]ackages/packages-lock.json
+
+# afl
+/builds/
+/tools/master_data/temp/
+
+# Addressable
+# 自動生成されるのでignoreしてよさそう？
+/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/link.xml.meta
+/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/link.xml
+# Recorder
+/[Rr]ecordings/
+
+###################################################################################################
