@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28258c69e5e07284f9912903f8607b04, type: 3}
+  m_Name: DialogueRuntime
+  m_EditorClassIdentifier: 
+  FileName: DialogueRuntime
+  NodeList:
+  - Id: bb7ff5c6-d510-437c-b8ef-5334f7132a89
+    TextKey: 1111
+    IsStartingDialogue: 1
+    NodeType: 0
+    ChoiceList:
+    - NextNodeId: e8ed7afa-66bc-4df2-9bc3-58cc68a5ed53
+      TextKey: Next Dialogue
+      Text: 
+  - Id: e8ed7afa-66bc-4df2-9bc3-58cc68a5ed53
+    TextKey: 22
+    IsStartingDialogue: 0
+    NodeType: 0
+    ChoiceList:
+    - NextNodeId: 
+      TextKey: Next Dialogue
+      Text: 

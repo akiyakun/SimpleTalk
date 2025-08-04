@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98ea82eaa40210c4ab419524260f9e6c, type: 3}
+  m_Name: TestTxtData
+  m_EditorClassIdentifier: 
+  entityDictionary:
+    list:
+    - Key: TXT_0000
+      Value:
+        Key: TXT_0000
+        Text: "\u30C6\u30AD\u30B9\u30C80"
+    - Key: TXT_0001
+      Value:
+        Key: TXT_0001
+        Text: "\u30C6\u30AD\u30B9\u30C81"
+    - Key: TXT_0002
+      Value:
+        Key: TXT_0002
+        Text: "\u30C6\u30AD\u30B9\u30C82"
+    - Key: TXT_0003
+      Value:
+        Key: TXT_0003
+        Text: "\u30C6\u30AD\u30B9\u30C83"
+    - Key: TXT_0004
+      Value:
+        Key: TXT_0004
+        Text: "\u30C6\u30AD\u30B9\u30C84"
