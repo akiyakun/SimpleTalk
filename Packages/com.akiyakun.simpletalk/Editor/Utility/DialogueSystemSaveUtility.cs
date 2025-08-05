@@ -75,11 +75,12 @@ namespace DS
                 var nodeSaveData = new DialogueSystemNodeSaveData();
                 nodeSaveData.Initialize(
                     id: node.Id,
+                    characterId: node.CharacterId,
                     textKey: node.TextKey,
-                    isStartingDialogue: node.IsStartingNode(),
+                    isStartingDialogue: node.IsStartingNode,
                     nodeType: node.NodeType,
                     choices: node.ChoiceList);
-                if (node.IsStartingNode())
+                if (node.IsStartingNode)
                 {
                     nodeSaveDataList.Insert(0, nodeSaveData);
                 }
@@ -110,9 +111,11 @@ namespace DS
                 Id = node.Id,
                 Name = node.DialogueName,
                 ChoiceList = choices,
+                CharacterId = node.CharacterId,
                 TextKey = node.TextKey,
                 Text = node.Text,
                 NodeType = node.NodeType,
+                IsStartingNode = node.IsStartingNode,
                 Position = node.GetPosition().position
             };
 
@@ -123,12 +126,14 @@ namespace DS
         {
             var nodeView = new DialogueSystemNodeEditorSaveData();
             nodeView.Id = node.Id;
+            nodeView.CharacterId = node.CharacterId;
             nodeView.TextKey = node.TextKey;
             nodeView.Text = node.Text;
             nodeView.NodeType = node.NodeType;
             nodeView.ChoiceList = node.ChoiceList;
             nodeView.TextKey = node.TextKey;
             nodeView.Text = node.Text;
+            nodeView.IsStartingNode = node.IsStartingNode;
             createdNodeDictionary.Add(node.Id, nodeView);
         }
 
@@ -180,8 +185,17 @@ namespace DS
                 var node = graphView.CreateNode(nodeData.Name, nodeData.NodeType, nodeData.Position, false);
                 node.Id = nodeData.Id;
                 node.ChoiceList = choices;
+                node.CharacterId = nodeData.CharacterId;
                 node.TextKey = nodeData.TextKey;
                 node.Text = nodeData.Text;
+                if (nodeData.IsStartingNode)
+                {
+                    node.SetStartingNodeStyle();
+                }
+                else
+                {
+                    node.ResetColorStyle();
+                }
                 node.Draw();
                 graphView.AddElement(node);
                 loadedNodeDictionary.Add(node.Id, node);

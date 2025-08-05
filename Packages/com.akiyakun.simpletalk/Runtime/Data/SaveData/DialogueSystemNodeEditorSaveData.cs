@@ -9,8 +9,10 @@ namespace DS
     {
         [HideInInspector][SerializeField] public string Id;
         [HideInInspector][SerializeField] public string Name;
+        [SerializeField] public string CharacterId;
         [SerializeField] public string TextKey;
         [SerializeField] public string Text;
+        [SerializeField] public bool IsStartingNode;
         [SerializeField] public DialogueSystemNodeType NodeType;
         [HideInInspector][SerializeField] public Vector2 Position;
         [SerializeField] public List<DialogueSystemChoiceSaveData> ChoiceList;

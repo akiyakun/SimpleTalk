@@ -57,14 +57,14 @@ namespace DS
             toolbar.Add(loadTxtDataButton);
             toolbar.Add(txtFileLabel);
 
-            toolbar.AddStyleSheets("Assets/DialogueSystem/Editor/StyleSheet/DialogueSystemToolbar.uss");
+            toolbar.AddStyleSheets("Packages/com.akiyakun.simpletalk/Editor/StyleSheet/DialogueSystemToolbar.uss");
 
             rootVisualElement.Add(toolbar);
         }
 
         void AddStyles()
         {
-            var styleSheet = (StyleSheet)EditorGUIUtility.Load("Assets/DialogueSystem/Editor/StyleSheet/DialogueSystemVariables.uss");
+            var styleSheet = (StyleSheet)EditorGUIUtility.Load("Packages/com.akiyakun.simpletalk/Editor/StyleSheet/DialogueSystemVariables.uss");
             rootVisualElement.styleSheets.Add(styleSheet);
         }
 

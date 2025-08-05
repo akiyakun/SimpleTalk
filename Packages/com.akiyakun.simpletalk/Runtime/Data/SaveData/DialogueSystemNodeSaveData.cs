@@ -8,6 +8,7 @@ namespace DS
     public class DialogueSystemNodeSaveData
     {
         [SerializeField] public string Id;
+        [SerializeField] public string CharacterId;
         [SerializeField] public string TextKey;
         [SerializeField] public bool IsStartingDialogue;
         [SerializeField] public DialogueSystemNodeType NodeType;
@@ -15,12 +16,14 @@ namespace DS
 
         public void Initialize(
             string id,
+            string characterId,
             string textKey,
             bool isStartingDialogue,
             DialogueSystemNodeType nodeType,
             List<DialogueSystemChoiceSaveData> choices)
         {
             Id = id;
+            CharacterId = characterId;
             TextKey = textKey;
             ChoiceList = choices;
             NodeType = nodeType;

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEditor;
@@ -79,24 +80,27 @@ namespace DS
 
         DialogueSystemNode CreateNode(DialogueSystemNodeType type, Vector2 position)
         {
+            var node = new DialogueSystemNode();
             if (type == DialogueSystemNodeType.SingleChoice)
             {
                 var singleNode = new DialogueSystemSingleChoiceNode();
                 singleNode.Initialize(this, position);
                 singleNode.Draw();
-                return singleNode;
+                node = singleNode;
             }
             else if (type == DialogueSystemNodeType.MultipleChoice)
             {
                 var multipleNode = new DialogueSystemMultipleChoiceNode();
                 multipleNode.Initialize(this, position);
                 multipleNode.Draw();
-                return multipleNode;
+                node = multipleNode;
             }
-
-            var node = new DialogueSystemNode();
-            node.Initialize(this, position);
-            node.Draw();
+            else
+            {
+                node = new DialogueSystemNode();
+                node.Initialize(this, position);
+                node.Draw();
+            }
 
             if (nodeDictionary.ContainsKey(node.Id))
             {
@@ -108,6 +112,10 @@ namespace DS
             }
             else
             {
+                if (nodeDictionary.Count == 0)
+                {
+                    node.SetStartingNodeStyle();
+                }
                 nodeDictionary.Add(node.Id, new List<DialogueSystemNode>() { node });
             }
 
@@ -127,8 +135,8 @@ namespace DS
         void AddStyles()
         {
             this.AddStyleSheets(
-                "Assets/DialogueSystem/Editor/StyleSheet/DialogueSystemGraphView.uss",
-                "Assets/DialogueSystem/Editor/StyleSheet/DialogueSystemNodeView.uss");
+                "Packages/com.akiyakun.simpletalk/Editor/StyleSheet/DialogueSystemGraphView.uss",
+                "Packages/com.akiyakun.simpletalk/Editor/StyleSheet/DialogueSystemNodeView.uss");
         }
 
         public void ClearGraph()
@@ -193,14 +201,26 @@ namespace DS
                         if (nodeDictionary[node.Id].Count > 1)
                         {
                             nodeDictionary[node.Id].Remove(node);
+
                             if (nodeDictionary[node.Id].Count == 1)
                             {
-                                nodeDictionary[node.Id][0].ResetColorStyle();
+                                if (node.IsStartingNode)
+                                {
+                                    nodeDictionary[node.Id][0].SetStartingNodeStyle();
+                                }
+                                else
+                                {
+                                    nodeDictionary[node.Id][0].ResetColorStyle();
+                                }
                             }
                         }
                         else
                         {
                             nodeDictionary.Remove(node.Id);
+                            if (node.IsStartingNode && nodeDictionary.Count > 0)
+                            {
+                                nodeDictionary.First().Value[0].SetStartingNodeStyle();
+                            }
                         }
                     }
 
@@ -245,6 +265,21 @@ namespace DS
 
                 return changes;
             };
+        }
+
+        public void ResetNodeStyle()
+        {
+            if (nodeDictionary == null || nodeDictionary.Count == 0)
+            {
+                return;
+            }
+            foreach (var nodeList in nodeDictionary.Values)
+            {
+                foreach (var node in nodeList)
+                {
+                    node.ResetColorStyle();
+                }
+            }
         }
 
     }

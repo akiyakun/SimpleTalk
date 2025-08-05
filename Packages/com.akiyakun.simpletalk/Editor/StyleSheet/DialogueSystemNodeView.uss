@@ -87,7 +87,9 @@
 }
 
 TextField {
-    margin-left: var(--ds-metrics-window-pixels-0);
+    -unity-font-style: bold;
+    -unity-text-align: middle-left;
+    margin-left: var(--ds-metrics-window-pixels-8);
 }
 
 .ds-node__custom-data-container > Foldout {
@@ -103,6 +105,7 @@ TextField {
 .ds-node__label-text {
     -unity-text-align: middle-left;
     margin-left: var(--ds-metrics-window-pixels-8);
+    font-size: 30px;
 }
 
 .ds-node__label-contents-text {
