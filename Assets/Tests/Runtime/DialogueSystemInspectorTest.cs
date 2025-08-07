@@ -80,12 +80,12 @@ namespace DS.Test
                 .GetField("dialogueData", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
                 ?.SetValue(inspector, scriptable);
 
-            inspector.DialogueContentDictionary = new Dictionary<string, string>
+            inspector.DialogueContentProvider = new DialogueContentProvider(new Dictionary<string, string>
             {
                 { "mainText", "Hello, this is a test dialogue!" },
                 { "choice1", "Option A" },
                 { "choice2", "Option B" }
-            };
+            });
 
             // Event
             bool startEventFired = false;

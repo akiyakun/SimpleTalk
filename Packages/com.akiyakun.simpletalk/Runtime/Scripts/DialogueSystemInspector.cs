@@ -1,8 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
+using TMPro;
 
 namespace DS
 {
@@ -13,11 +13,11 @@ namespace DS
         [SerializeField] List<TMP_Text> choiceTextList;
         [SerializeField] float toNextWaitTime;
 
+        public IDialogueContent DialogueContentProvider { get; set; }
         public Action TextStartEvent { get; set; }
         public Action TextEndtEvent { get; set; }
         public Action<int> RefreshChoiceWitchCountEvent { get; set; }
         public string CurrentNodeID { get; private set; }
-        public Dictionary<string, string> DialogueContentDictionary { get; set; }
 
         bool isInited = false;
         Dictionary<string, DialogueSystemNodeSaveData> nodeDictionary;
@@ -29,29 +29,29 @@ namespace DS
                 Debug.LogError("Dialogue data is null!");
                 return;
             }
-            nodeDictionary = new Dictionary<string, DialogueSystemNodeSaveData>();
-            DialogueContentDictionary = new Dictionary<string, string>();
-            foreach (var node in dialogueData.NodeList)
-            {
-                if (nodeDictionary.ContainsKey(node.Id) == false)
-                {
-                    nodeDictionary.Add(node.Id, node);
-                }
-                if (DialogueContentDictionary.ContainsKey(node.TextKey) == false)
-                {
-                    DialogueContentDictionary.Add(node.TextKey, string.Empty);
-                }
 
-                foreach (var choice in node.ChoiceList)
+            if (DialogueContentProvider == null)
+            {
+                var contentDictionary = new Dictionary<string, string>();
+                foreach (var node in dialogueData.NodeList)
                 {
-                    if (string.IsNullOrEmpty(choice.TextKey) == false)
+                    if (contentDictionary.ContainsKey(node.TextKey) == false)
                     {
-                        if (DialogueContentDictionary.ContainsKey(choice.TextKey) == false)
+                        contentDictionary.Add(node.TextKey, string.Empty);
+                    }
+
+                    foreach (var choice in node.ChoiceList)
+                    {
+                        if (string.IsNullOrEmpty(choice.TextKey) == false)
                         {
-                            DialogueContentDictionary.Add(choice.TextKey, string.Empty);
+                            if (contentDictionary.ContainsKey(choice.TextKey) == false)
+                            {
+                                contentDictionary.Add(choice.TextKey, string.Empty);
+                            }
                         }
                     }
                 }
+                DialogueContentProvider = new DialogueContentProvider(contentDictionary);
             }
 
             if (toNextWaitTime == 0)
@@ -81,6 +81,10 @@ namespace DS
 
         public void StartDialogue()
         {
+            if (isInited == false)
+            {
+                Initialize();
+            }
             if (dialogueData == null)
             {
                 Debug.LogError("Dialogue data is null!");
@@ -96,6 +100,10 @@ namespace DS
 
         public void StartDialogue(string id)
         {
+            if (isInited == false)
+            {
+                Initialize();
+            }
             CurrentNodeID = id;
             ShowCurrentNode();
         }
@@ -119,13 +127,14 @@ namespace DS
             if (dialogueText == null)
             {
                 Debug.LogError("Dialogue Text(TMP_Text) is null!");
+                yield break;
             }
             else
             {
                 TextStartEvent?.Invoke();
                 dialogueText.text = "";
                 yield return new WaitForSeconds(0.1f);
-                dialogueText.text = DialogueContentDictionary[nodeData.TextKey];
+                dialogueText.text = DialogueContentProvider.GetText(nodeData.TextKey);
                 yield return new WaitForSeconds(toNextWaitTime);
                 TextEndtEvent?.Invoke();
             }
@@ -142,7 +151,7 @@ namespace DS
                 {
                     if (i < choices.Count)
                     {
-                        choiceTextList[i].text = DialogueContentDictionary[choices[i].TextKey];
+                        choiceTextList[i].text = DialogueContentProvider.GetText(choices[i].TextKey);
                     }
                     else
                     {

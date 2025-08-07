@@ -14,34 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FileName: DialogueTestRuntime
   NodeList:
-  - Id: e394f6e5-10b4-4a1e-8848-9338f90cfe5a
+  - Id: 57a36897-e0c0-47dd-95fb-d0046333738b
+    CharacterId: 
     TextKey: 
     IsStartingDialogue: 1
-    NodeType: 0
-    ChoiceList:
-    - NextNodeId: 80ab2928-3d68-42f1-8414-40017f954e13
-      TextKey: Next Dialogue
-      Text: 
-  - Id: 80ab2928-3d68-42f1-8414-40017f954e13
-    TextKey: 
-    IsStartingDialogue: 0
-    NodeType: 0
-    ChoiceList:
-    - NextNodeId: d75acc66-52da-4735-b879-1b3e3fcce575
-      TextKey: Next Dialogue
-      Text: 
-  - Id: d75acc66-52da-4735-b879-1b3e3fcce575
-    TextKey: 
-    IsStartingDialogue: 0
     NodeType: 1
     ChoiceList:
-    - NextNodeId: 361ddb55-86ea-4f42-9a6a-3c1dd168a4a4
-      TextKey: TXT_C_001
-      Text: New Choice Text
-    - NextNodeId: a58103d8-ae7e-49b0-8385-418f6627c22e
+    - NextNodeId: cf930e7a-ea8d-4e6c-8e7c-87a80a35714b
       TextKey: New Choice Key
       Text: New Choice Text
-  - Id: 361ddb55-86ea-4f42-9a6a-3c1dd168a4a4
+    - NextNodeId: de8cff85-2626-4fe0-94b9-c45f727e6365
+      TextKey: New Choice Key
+      Text: New Choice Text
+  - Id: c9551cfb-6626-4273-84cc-16871f6c1ac8
+    CharacterId: 
     TextKey: 
     IsStartingDialogue: 0
     NodeType: 0
@@ -49,7 +35,17 @@ MonoBehaviour:
     - NextNodeId: 
       TextKey: Next Dialogue
       Text: 
-  - Id: a58103d8-ae7e-49b0-8385-418f6627c22e
+  - Id: cf930e7a-ea8d-4e6c-8e7c-87a80a35714b
+    CharacterId: 
+    TextKey: 
+    IsStartingDialogue: 0
+    NodeType: 0
+    ChoiceList:
+    - NextNodeId: c9551cfb-6626-4273-84cc-16871f6c1ac8
+      TextKey: Next Dialogue
+      Text: 
+  - Id: de8cff85-2626-4fe0-94b9-c45f727e6365
+    CharacterId: 
     TextKey: 
     IsStartingDialogue: 0
     NodeType: 0

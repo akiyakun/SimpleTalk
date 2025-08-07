@@ -12,58 +12,56 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0202a3095b7477a4091d56344f0af6b3, type: 3}
   m_Name: DialogueTest
   m_EditorClassIdentifier: 
-  FileName: DialogueTest
-  TxtDataPath: D:/UnityProject/6.x/SimpleTalk/Assets/TestTxtData.asset
+  FileName: 
+  TxtDataPath: 
   NodeList:
-  - Id: e394f6e5-10b4-4a1e-8848-9338f90cfe5a
+  - Id: c9551cfb-6626-4273-84cc-16871f6c1ac8
     Name: Single Choice
+    CharacterId: 
     TextKey: 
     Text: New Text
+    IsStartingNode: 0
     NodeType: 0
-    Position: {x: 104.666664, y: 130}
-    ChoiceList:
-    - NextNodeId: 80ab2928-3d68-42f1-8414-40017f954e13
-      TextKey: Next Dialogue
-      Text: 
-  - Id: 80ab2928-3d68-42f1-8414-40017f954e13
-    Name: Single Choice
-    TextKey: 
-    Text: New Text
-    NodeType: 0
-    Position: {x: 403.33334, y: 112.66667}
-    ChoiceList:
-    - NextNodeId: d75acc66-52da-4735-b879-1b3e3fcce575
-      TextKey: Next Dialogue
-      Text: 
-  - Id: d75acc66-52da-4735-b879-1b3e3fcce575
-    Name: Multiple Choice
-    TextKey: 
-    Text: New Text
-    NodeType: 1
-    Position: {x: 706, y: 63.333336}
-    ChoiceList:
-    - NextNodeId: 361ddb55-86ea-4f42-9a6a-3c1dd168a4a4
-      TextKey: TXT_C_001
-      Text: New Choice Text
-    - NextNodeId: a58103d8-ae7e-49b0-8385-418f6627c22e
-      TextKey: New Choice Key
-      Text: New Choice Text
-  - Id: 361ddb55-86ea-4f42-9a6a-3c1dd168a4a4
-    Name: Single Choice
-    TextKey: 
-    Text: New Text
-    NodeType: 0
-    Position: {x: 1274.6666, y: -1.333334}
+    Position: {x: 580.8, y: 149.6}
     ChoiceList:
     - NextNodeId: 
       TextKey: Next Dialogue
       Text: 
-  - Id: a58103d8-ae7e-49b0-8385-418f6627c22e
-    Name: Single Choice
+  - Id: 57a36897-e0c0-47dd-95fb-d0046333738b
+    Name: Multiple Choice
+    CharacterId: 
     TextKey: 
     Text: New Text
+    IsStartingNode: 1
+    NodeType: 1
+    Position: {x: -362.4, y: 190.40001}
+    ChoiceList:
+    - NextNodeId: cf930e7a-ea8d-4e6c-8e7c-87a80a35714b
+      TextKey: New Choice Key
+      Text: New Choice Text
+    - NextNodeId: de8cff85-2626-4fe0-94b9-c45f727e6365
+      TextKey: New Choice Key
+      Text: New Choice Text
+  - Id: cf930e7a-ea8d-4e6c-8e7c-87a80a35714b
+    Name: Single Choice
+    CharacterId: 
+    TextKey: 
+    Text: New Text
+    IsStartingNode: 0
     NodeType: 0
-    Position: {x: 1274.6666, y: 240}
+    Position: {x: 185.6, y: 149.6}
+    ChoiceList:
+    - NextNodeId: c9551cfb-6626-4273-84cc-16871f6c1ac8
+      TextKey: Next Dialogue
+      Text: 
+  - Id: de8cff85-2626-4fe0-94b9-c45f727e6365
+    Name: Single Choice
+    CharacterId: 
+    TextKey: 
+    Text: New Text
+    IsStartingNode: 0
+    NodeType: 0
+    Position: {x: 200.8, y: 381.6}
     ChoiceList:
     - NextNodeId: 
       TextKey: Next Dialogue
