@@ -18,8 +18,8 @@ namespace DS
         public Action TextEndtEvent { get; set; }
         public Action<int> RefreshChoiceWitchCountEvent { get; set; }
         public string CurrentNodeID { get; private set; }
+        public bool IsInited { get; private set; } = false;
 
-        bool isInited = false;
         Dictionary<string, DialogueSystemNodeSaveData> nodeDictionary;
 
         public void Initialize()
@@ -68,7 +68,7 @@ namespace DS
                 toNextWaitTime = 0.5f;
             }
 
-            isInited = true;
+            IsInited = true;
         }
 
         public List<string> GetNextNodeId()
@@ -88,9 +88,9 @@ namespace DS
             return ids;
         }
 
-        public void StartDialogue()
+        public void StartDialogueFromBegin()
         {
-            if (isInited == false)
+            if (IsInited == false)
             {
                 Initialize();
             }
@@ -109,7 +109,7 @@ namespace DS
 
         public void StartDialogue(string id)
         {
-            if (isInited == false)
+            if (IsInited == false)
             {
                 Initialize();
             }
@@ -119,7 +119,7 @@ namespace DS
 
         void ShowCurrentNode()
         {
-            if (isInited == false)
+            if (IsInited == false)
             {
                 Initialize();
             }

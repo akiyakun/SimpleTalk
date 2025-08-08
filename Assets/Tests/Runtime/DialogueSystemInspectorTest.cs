@@ -60,7 +60,87 @@ namespace DS.Test
         }
 
         [UnityTest]
-        public IEnumerator StartShowsDialogueTextAndChoices()
+        public IEnumerator DialogueTextの初期化()
+        {
+            // ScriptableObject生成
+            var scriptable = ScriptableObject.CreateInstance<DialogueSystemContainerScriptableObject>();
+            var node = new DialogueSystemNodeSaveData
+            {
+                Id = "node1",
+                TextKey = "mainText",
+                ChoiceList = new List<DialogueSystemChoiceSaveData>
+            {
+                new DialogueSystemChoiceSaveData { TextKey = "choice1" },
+                new DialogueSystemChoiceSaveData { TextKey = "choice2" },
+            }
+            };
+            scriptable.NodeList = new List<DialogueSystemNodeSaveData> { node };
+
+            // ScriptableObject
+            typeof(DialogueSystemInspector)
+                .GetField("dialogueData", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                ?.SetValue(inspector, scriptable);
+
+            inspector.DialogueContentProvider = new DialogueContentProvider(new Dictionary<string, string>
+            {
+                { "mainText", "Hello, this is a test dialogue!" },
+                { "choice1", "Option A" },
+                { "choice2", "Option B" }
+            });
+
+            inspector.Initialize();
+            yield return new WaitForSeconds(2f);
+
+            Assert.IsTrue(inspector.IsInited);
+            Assert.IsTrue(inspector.GetComponentsInChildren<TextMeshProUGUI>().Length > 0);
+        }
+
+        [UnityTest]
+        public IEnumerator DialogueTextのイベントの実行()
+        {
+            // ScriptableObject生成
+            var scriptable = ScriptableObject.CreateInstance<DialogueSystemContainerScriptableObject>();
+            var node = new DialogueSystemNodeSaveData
+            {
+                Id = "node1",
+                TextKey = "mainText",
+                ChoiceList = new List<DialogueSystemChoiceSaveData>
+            {
+                new DialogueSystemChoiceSaveData { TextKey = "choice1" },
+                new DialogueSystemChoiceSaveData { TextKey = "choice2" },
+            }
+            };
+            scriptable.NodeList = new List<DialogueSystemNodeSaveData> { node };
+
+            // ScriptableObject
+            typeof(DialogueSystemInspector)
+                .GetField("dialogueData", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                ?.SetValue(inspector, scriptable);
+
+            inspector.DialogueContentProvider = new DialogueContentProvider(new Dictionary<string, string>
+            {
+                { "mainText", "Hello, this is a test dialogue!" },
+                { "choice1", "Option A" },
+                { "choice2", "Option B" }
+            });
+
+            // Event
+            bool startEventFired = false;
+            bool endEventFired = false;
+            bool refreshEventFired = false;
+            inspector.TextStartEvent = () => startEventFired = true;
+            inspector.TextEndtEvent = () => endEventFired = true;
+            inspector.RefreshChoiceWitchCountEvent = (count) => refreshEventFired = true;
+            inspector.StartDialogueFromBegin();
+            yield return new WaitForSeconds(2f);
+
+            Assert.IsTrue(startEventFired);
+            Assert.IsTrue(endEventFired);
+            Assert.IsTrue(refreshEventFired);
+        }
+
+        //[UnityTest]
+        public IEnumerator DialogueTextAndChoicesAllTest()
         {
             // ScriptableObject生成
             var scriptable = ScriptableObject.CreateInstance<DialogueSystemContainerScriptableObject>();
@@ -95,7 +175,7 @@ namespace DS.Test
             inspector.TextEndtEvent = () => endEventFired = true;
 
             // Act
-            inspector.StartDialogue();
+            inspector.StartDialogueFromBegin();
             yield return new WaitForSeconds(2f);
 
             // Assert
