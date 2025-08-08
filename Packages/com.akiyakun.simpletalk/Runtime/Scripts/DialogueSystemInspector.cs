@@ -54,6 +54,15 @@ namespace DS
                 DialogueContentProvider = new DialogueContentProvider(contentDictionary);
             }
 
+            nodeDictionary = new Dictionary<string, DialogueSystemNodeSaveData>();
+            foreach (var node in dialogueData.NodeList)
+            {
+                if (nodeDictionary.ContainsKey(node.Id) == false)
+                {
+                    nodeDictionary.Add(node.Id, node);
+                }
+            }
+
             if (toNextWaitTime == 0)
             {
                 toNextWaitTime = 0.5f;
