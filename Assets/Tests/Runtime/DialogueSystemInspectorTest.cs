@@ -81,14 +81,14 @@ namespace DS.Test
                 .GetField("dialogueData", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
                 ?.SetValue(inspector, scriptable);
 
-            inspector.DialogueContentProvider = new DialogueContentProvider(new Dictionary<string, string>
+            var contentProvider = new DialogueContentProvider(new Dictionary<string, string>
             {
                 { "mainText", "Hello, this is a test dialogue!" },
                 { "choice1", "Option A" },
                 { "choice2", "Option B" }
             });
 
-            inspector.Initialize();
+            inspector.Initialize(contentProvider);
             yield return new WaitForSeconds(2f);
 
             Assert.IsTrue(inspector.IsInited);
@@ -117,7 +117,7 @@ namespace DS.Test
                 .GetField("dialogueData", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
                 ?.SetValue(inspector, scriptable);
 
-            inspector.DialogueContentProvider = new DialogueContentProvider(new Dictionary<string, string>
+            var contentProvider = new DialogueContentProvider(new Dictionary<string, string>
             {
                 { "mainText", "Hello, this is a test dialogue!" },
                 { "choice1", "Option A" },
@@ -129,8 +129,10 @@ namespace DS.Test
             bool endEventFired = false;
             bool refreshEventFired = false;
             inspector.TextStartEvent = () => startEventFired = true;
-            inspector.TextEndtEvent = () => endEventFired = true;
+            inspector.TextEndEvent = () => endEventFired = true;
             inspector.RefreshChoiceWitchCountEvent = (count) => refreshEventFired = true;
+
+            inspector.Initialize(contentProvider);
             inspector.StartDialogueFromBegin();
             yield return new WaitForSeconds(2f);
 
@@ -161,18 +163,19 @@ namespace DS.Test
                 .GetField("dialogueData", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
                 ?.SetValue(inspector, scriptable);
 
-            inspector.DialogueContentProvider = new DialogueContentProvider(new Dictionary<string, string>
+            var contentProvider = new DialogueContentProvider(new Dictionary<string, string>
             {
                 { "mainText", "Hello, this is a test dialogue!" },
                 { "choice1", "Option A" },
                 { "choice2", "Option B" }
             });
+            inspector.Initialize(contentProvider);
 
             // Event
             bool startEventFired = false;
             bool endEventFired = false;
             inspector.TextStartEvent = () => startEventFired = true;
-            inspector.TextEndtEvent = () => endEventFired = true;
+            inspector.TextEndEvent = () => endEventFired = true;
 
             // Act
             inspector.StartDialogueFromBegin();

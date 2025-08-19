@@ -17,20 +17,36 @@ MonoBehaviour:
     - Key: TXT_0000
       Value:
         Key: TXT_0000
-        Text: "\u30C6\u30AD\u30B9\u30C80"
+        Text: This is test text 0000.
     - Key: TXT_0001
       Value:
         Key: TXT_0001
-        Text: "\u30C6\u30AD\u30B9\u30C81"
+        Text: This is test text 0001.
     - Key: TXT_0002
       Value:
         Key: TXT_0002
-        Text: "\u30C6\u30AD\u30B9\u30C82"
+        Text: This is test text 0002.
     - Key: TXT_0003
       Value:
         Key: TXT_0003
-        Text: "\u30C6\u30AD\u30B9\u30C83"
+        Text: This is test text 0003.
     - Key: TXT_0004
       Value:
         Key: TXT_0004
-        Text: "\u30C6\u30AD\u30B9\u30C84"
+        Text: This is test text 0004.
+    - Key: TXT_0005
+      Value:
+        Key: TXT_0005
+        Text: This is test text 0005.
+    - Key: TXT_1000
+      Value:
+        Key: TXT_1000
+        Text: Choice text 1000.
+    - Key: TXT_1001
+      Value:
+        Key: TXT_1001
+        Text: Choice text 1001.
+    - Key: TXT_1002
+      Value:
+        Key: TXT_1002
+        Text: Choice text 1002.

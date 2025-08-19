@@ -13,22 +13,22 @@ namespace DS
         [SerializeField] List<TMP_Text> choiceTextList;
         [SerializeField] float toNextWaitTime;
 
-        public IDialogueContent DialogueContentProvider { get; set; }
         public Action TextStartEvent { get; set; }
-        public Action TextEndtEvent { get; set; }
+        public Action TextEndEvent { get; set; }
         public Action<int> RefreshChoiceWitchCountEvent { get; set; }
+        public Action<string> CharacterChangedEvent { get; set; }
+        public IDialogueContent DialogueContentProvider { get; private set; }
         public string CurrentNodeID { get; private set; }
+        public string CurrentCharacterId { get; private set; }
         public bool IsInited { get; private set; } = false;
 
         Dictionary<string, DialogueSystemNodeSaveData> nodeDictionary;
 
-        public void Initialize()
+        public void Initialize(IDialogueContent dialogueContent)
         {
-            if (dialogueData == null)
-            {
-                Debug.LogError("Dialogue data is null!");
-                return;
-            }
+            Debug.Assert(dialogueData != null, "Dialogue data is null!");
+
+            DialogueContentProvider = dialogueContent;
 
             if (DialogueContentProvider == null)
             {
@@ -65,7 +65,7 @@ namespace DS
 
             if (toNextWaitTime == 0)
             {
-                toNextWaitTime = 0.5f;
+                toNextWaitTime = 0.1f;
             }
 
             IsInited = true;
@@ -80,7 +80,7 @@ namespace DS
                 {
                     if (string.IsNullOrEmpty(choice.TextKey) == false)
                     {
-                        ids.Add(choice.TextKey);
+                        ids.Add(choice.NextNodeId);
                     }
                 }
             }
@@ -90,10 +90,8 @@ namespace DS
 
         public void StartDialogueFromBegin()
         {
-            if (IsInited == false)
-            {
-                Initialize();
-            }
+            Debug.Assert(IsInited, "Dialogue system is not initialized.");
+
             if (dialogueData == null)
             {
                 Debug.LogError("Dialogue data is null!");
@@ -109,21 +107,28 @@ namespace DS
 
         public void StartDialogue(string id)
         {
-            if (IsInited == false)
-            {
-                Initialize();
-            }
+            Debug.Assert(IsInited, "Dialogue system is not initialized.");
             CurrentNodeID = id;
             ShowCurrentNode();
         }
 
+        public void StartDialogueWithChoice(int choiceIndex)
+        {
+            Debug.Assert(IsInited, "Dialogue system is not initialized.");
+            if (choiceIndex < 0 || choiceIndex >= nodeDictionary[CurrentNodeID].ChoiceList.Count)
+            {
+                Debug.LogError("Choice index out of range: " + choiceIndex);
+                return;
+            }
+            CurrentNodeID = nodeDictionary[CurrentNodeID].ChoiceList[choiceIndex].NextNodeId;
+            if (string.IsNullOrEmpty(CurrentNodeID) == false)
+            {
+                ShowCurrentNode();
+            }
+        }
+
         void ShowCurrentNode()
         {
-            if (IsInited == false)
-            {
-                Initialize();
-            }
-
             if (nodeDictionary.Count > 0)
             {
                 StartCoroutine(TypeText(nodeDictionary[CurrentNodeID]));
@@ -140,12 +145,18 @@ namespace DS
             }
             else
             {
+                if (CurrentCharacterId != nodeData.CharacterId)
+                {
+                    CurrentCharacterId = nodeData.CharacterId;
+                    CharacterChangedEvent?.Invoke(CurrentCharacterId);
+                }
+
                 TextStartEvent?.Invoke();
                 dialogueText.text = "";
                 yield return new WaitForSeconds(0.1f);
                 dialogueText.text = DialogueContentProvider.GetText(nodeData.TextKey);
                 yield return new WaitForSeconds(toNextWaitTime);
-                TextEndtEvent?.Invoke();
+                TextEndEvent?.Invoke();
             }
 
             ShowChoices(nodeData.ChoiceList);
@@ -153,8 +164,17 @@ namespace DS
 
         void ShowChoices(List<DialogueSystemChoiceSaveData> choices)
         {
-            RefreshChoiceWitchCountEvent?.Invoke(choices.Count);
-            if (choices.Count > 0)
+            int choiceCount = 0;
+            for (int i = 0; i < choices.Count; i++)
+            {
+                if (string.IsNullOrEmpty(choices[i].NextNodeId) == false)
+                {
+                    choiceCount++;
+                }
+            }
+
+            RefreshChoiceWitchCountEvent?.Invoke(choiceCount);
+            if (choiceCount > 0)
             {
                 for (int i = 0; i < choiceTextList.Count; i++)
                 {

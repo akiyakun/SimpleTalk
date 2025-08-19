@@ -94,11 +94,12 @@ namespace DS
         {
             if (string.IsNullOrEmpty(DialogueSystemSaveUtility.TxtDataPath) == false)
             {
-                var txtfile = AssetDatabase.LoadAssetAtPath<TextDataScriptableObject>(DialogueSystemSaveUtility.ConvertPathToRelative(DialogueSystemSaveUtility.TxtDataPath));
-                if (txtfile != null)
-                {
-                    textLabel.text = txtfile.Get(TextKey).Text;
-                }
+                // TODO: Implement text preview
+                //var txtfile = AssetDatabase.LoadAssetAtPath<TextDataScriptableObject>(DialogueSystemSaveUtility.ConvertPathToRelative(DialogueSystemSaveUtility.TxtDataPath));
+                //if (txtfile != null)
+                //{
+                //    textLabel.text = txtfile.Get(TextKey).Text;
+                //}
             }
         }
 

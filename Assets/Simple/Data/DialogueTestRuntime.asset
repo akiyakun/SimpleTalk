@@ -15,20 +15,20 @@ MonoBehaviour:
   FileName: DialogueTestRuntime
   NodeList:
   - Id: 57a36897-e0c0-47dd-95fb-d0046333738b
-    CharacterId: 
-    TextKey: 
+    CharacterId: 01
+    TextKey: TXT_0000
     IsStartingDialogue: 1
     NodeType: 1
     ChoiceList:
     - NextNodeId: cf930e7a-ea8d-4e6c-8e7c-87a80a35714b
-      TextKey: New Choice Key
+      TextKey: TXT_1000
       Text: New Choice Text
     - NextNodeId: de8cff85-2626-4fe0-94b9-c45f727e6365
-      TextKey: New Choice Key
+      TextKey: TXT_1001
       Text: New Choice Text
   - Id: c9551cfb-6626-4273-84cc-16871f6c1ac8
-    CharacterId: 
-    TextKey: 
+    CharacterId: 01
+    TextKey: TXT_0001
     IsStartingDialogue: 0
     NodeType: 0
     ChoiceList:
@@ -36,17 +36,17 @@ MonoBehaviour:
       TextKey: Next Dialogue
       Text: 
   - Id: cf930e7a-ea8d-4e6c-8e7c-87a80a35714b
-    CharacterId: 
-    TextKey: 
+    CharacterId: 02
+    TextKey: TXT_0002
     IsStartingDialogue: 0
     NodeType: 0
     ChoiceList:
     - NextNodeId: c9551cfb-6626-4273-84cc-16871f6c1ac8
-      TextKey: Next Dialogue
+      TextKey: TXT_1002
       Text: 
   - Id: de8cff85-2626-4fe0-94b9-c45f727e6365
-    CharacterId: 
-    TextKey: 
+    CharacterId: 02
+    TextKey: TXT_0003
     IsStartingDialogue: 0
     NodeType: 0
     ChoiceList:
