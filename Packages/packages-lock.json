@@ -1,7 +1,7 @@
 {
   "dependencies": {
-    "com.akiyakun.simpletalk": {
-      "version": "file:com.akiyakun.simpletalk",
+    "com.akiyakun.dialoguesystem": {
+      "version": "file:com.akiyakun.DialogueSystem",
       "depth": 0,
       "source": "embedded",
       "dependencies": {

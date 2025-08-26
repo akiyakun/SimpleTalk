@@ -4,8 +4,8 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "SimpleTalk.Runtime",
-        "Unity.TextMeshPro"
+        "Unity.TextMeshPro",
+        "DialogueSystem.Runtime"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

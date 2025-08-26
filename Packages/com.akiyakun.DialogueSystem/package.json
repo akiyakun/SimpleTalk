@@ -1,9 +1,9 @@
 {
-  "name": "com.akiyakun.simpletalk",
+  "name": "com.akiyakun.dialoguesystem",
   "version": "0.0.0",
-  "displayName": "SimpleTalk",
+  "displayName": "DialogueSystem",
   "unity": "6000.1",
-  "description": "SimpleTalk",
+  "description": "DialogueSystem",
   "dependencies": {
     "com.unity.addressables": "1.21.0",
     "com.cysharp.unitask": "2.1.0",
