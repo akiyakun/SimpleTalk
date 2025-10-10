@@ -9,6 +9,7 @@ namespace DS
     {
         [SerializeField] public string Id;
         [SerializeField] public string CharacterId;
+        [SerializeField] public int TextBoxIndex;
         [SerializeField] public string TextKey;
         [SerializeField] public bool IsStartingDialogue;
         [SerializeField] public DialogueSystemNodeType NodeType;
@@ -17,6 +18,7 @@ namespace DS
         public void Initialize(
             string id,
             string characterId,
+            int textBoxIndex,
             string textKey,
             bool isStartingDialogue,
             DialogueSystemNodeType nodeType,
@@ -24,6 +26,7 @@ namespace DS
         {
             Id = id;
             CharacterId = characterId;
+            TextBoxIndex = textBoxIndex;
             TextKey = textKey;
             ChoiceList = choices;
             NodeType = nodeType;

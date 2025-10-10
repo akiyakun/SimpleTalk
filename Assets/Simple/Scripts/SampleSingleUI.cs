@@ -2,30 +2,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SimpleUI : MonoBehaviour
+public class SampleSingleUI : MonoBehaviour
 {
-    [SerializeField] DS.DialogueSystemInspector dialogueSystemInspector;
+    [SerializeField] DS.DialogueSystemViewGroup viewGroup;
     [SerializeField] TextDataScriptableObject dialogueContentProvider;
     [SerializeField] List<Button> choiceButtonList;
 
     void Start()
     {
-        if (dialogueSystemInspector == null || dialogueContentProvider == null)
+        if (viewGroup == null || dialogueContentProvider == null)
         {
             return;
         }
-        dialogueSystemInspector.Initialize(dialogueContentProvider);
-        dialogueSystemInspector.RefreshChoiceWitchCountEvent += RefreshChoice;
+        viewGroup.Initialize(dialogueContentProvider);
+        viewGroup.OnRefreshChoiceWithCountEvent += RefreshChoice;
         InitButtonOnClick();
         RefreshChoice(0);
-        dialogueSystemInspector.StartDialogueFromBegin();
+        viewGroup.StartDialogueFromBegin();
     }
 
     void OnDestroy()
     {
-        if (dialogueSystemInspector != null)
+        if (viewGroup != null)
         {
-            dialogueSystemInspector.RefreshChoiceWitchCountEvent -= RefreshChoice;
+            viewGroup.OnRefreshChoiceWithCountEvent -= RefreshChoice;
         }
     }
 
@@ -38,7 +38,7 @@ public class SimpleUI : MonoBehaviour
             choiceButtonList[i].onClick.AddListener(() =>
             {
                 RefreshChoice(0);
-                dialogueSystemInspector.StartDialogueWithChoice(index);
+                viewGroup.StartDialogueWithChoice(index);
             });
         }
 

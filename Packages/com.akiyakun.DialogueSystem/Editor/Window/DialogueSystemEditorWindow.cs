@@ -9,19 +9,19 @@ namespace DS
 {
     public class DialogueSystemEditorWindow : EditorWindow
     {
-        readonly string DefaultFileName = "DialoguesFileName";
+        readonly string DefaultEditorFolder = "Packages/com.akiyakun.dialoguesystem/Editor";
 
-        [SerializeField] StyleSheet m_StyleSheet = default;
+        [SerializeField] StyleSheet styleSheet = default;
 
         DialogueSystemGraphView graphView;
         Label filePathLabel;
-        Label txtFileLabel;
-        Button loadTxtDataButton;
+        //Label txtFileLabel;
+        //Button loadTxtDataButton;
         Button saveButton;
         Button loadButton;
         Button clearButton;
 
-        [MenuItem("Onihime/DialogueSystemEditorWindow")]
+        [MenuItem("Tools/DialogueSystemEditorWindow")]
         public static void ShowExample()
         {
             DialogueSystemEditorWindow wnd = GetWindow<DialogueSystemEditorWindow>("Dialogue Window");
@@ -44,8 +44,8 @@ namespace DS
         {
             Toolbar toolbar = new Toolbar();
             filePathLabel = DialogueSystemElementUtility.CreateLabel("File Path: Null  ");
-            txtFileLabel = DialogueSystemElementUtility.CreateLabel("Txt File: Null  ");
-            loadTxtDataButton = DialogueSystemElementUtility.CreateButton("Load Txt Data", () => LoadTxtData());
+            //txtFileLabel = DialogueSystemElementUtility.CreateLabel("Txt File: Null  ");
+            //loadTxtDataButton = DialogueSystemElementUtility.CreateButton("Load Txt Data", () => LoadTxtData());
             saveButton = DialogueSystemElementUtility.CreateButton("Save", () => Save());
             loadButton = DialogueSystemElementUtility.CreateButton("Load", () => Load());
             clearButton = DialogueSystemElementUtility.CreateButton("Clear", () => Clear());
@@ -54,23 +54,23 @@ namespace DS
             toolbar.Add(saveButton);
             toolbar.Add(loadButton);
             toolbar.Add(clearButton);
-            toolbar.Add(loadTxtDataButton);
-            toolbar.Add(txtFileLabel);
+            //toolbar.Add(loadTxtDataButton);
+            //toolbar.Add(txtFileLabel);
 
-            toolbar.AddStyleSheets("Packages/com.akiyakun.simpletalk/Editor/StyleSheet/DialogueSystemToolbar.uss");
+            toolbar.AddStyleSheets($"{DefaultEditorFolder}/StyleSheet/DialogueSystemToolbar.uss");
 
             rootVisualElement.Add(toolbar);
         }
 
         void AddStyles()
         {
-            var styleSheet = (StyleSheet)EditorGUIUtility.Load("Packages/com.akiyakun.simpletalk/Editor/StyleSheet/DialogueSystemVariables.uss");
+            var styleSheet = (StyleSheet)EditorGUIUtility.Load($"{DefaultEditorFolder}/StyleSheet/DialogueSystemVariables.uss");
             rootVisualElement.styleSheets.Add(styleSheet);
         }
 
         void LoadTxtData()
         {
-            string filePath = EditorUtility.OpenFilePanel("Text Data", "Assets", "asset");
+            string filePath = EditorUtility.OpenFilePanel("Text Data", DefaultEditorFolder, "asset");
 
             if (string.IsNullOrEmpty(filePath))
             {
@@ -78,7 +78,7 @@ namespace DS
             }
 
             DialogueSystemSaveUtility.SetTxtPath(filePath);
-            txtFileLabel.text = $"Txt File: {Path.GetFileName(filePath)}";
+            //txtFileLabel.text = $"Txt File: {Path.GetFileName(filePath)}";
         }
 
         void Save()
@@ -103,7 +103,7 @@ namespace DS
 
         void Load()
         {
-            string filePath = EditorUtility.OpenFilePanel("Dialogue Graphs", "", "asset");
+            string filePath = EditorUtility.OpenFilePanel("Dialogue Graphs", DefaultEditorFolder, "asset");
 
             if (string.IsNullOrEmpty(filePath))
             {
@@ -117,7 +117,7 @@ namespace DS
             DialogueSystemSaveUtility.Initialize(graphView, folderPath, fileName);
             DialogueSystemSaveUtility.Load(folderPath, fileName);
             filePathLabel.text = $"File Path: {DialogueSystemSaveUtility.ConvertPathToRelative(filePath)}  ";
-            txtFileLabel.text = $"Txt File: {Path.GetFileName(DialogueSystemSaveUtility.TxtDataPath)}";
+            //txtFileLabel.text = $"Txt File: {Path.GetFileName(DialogueSystemSaveUtility.TxtDataPath)}";
         }
 
         void Clear()
@@ -125,7 +125,7 @@ namespace DS
             graphView.ClearGraph();
             DialogueSystemSaveUtility.SetTxtPath(string.Empty);
             filePathLabel.text = "File Path: Null  ";
-            txtFileLabel.text = "Txt File: Null ";
+            //txtFileLabel.text = "Txt File: Null ";
         }
 
     }

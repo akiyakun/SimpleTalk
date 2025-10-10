@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -37,13 +36,13 @@ namespace DS
             this.AddManipulator(CreateNodeContextualMenu(DialogueSystemNodeType.SingleChoice, "Add Node (Single Choice)"));
             this.AddManipulator(CreateNodeContextualMenu(DialogueSystemNodeType.MultipleChoice, "Add Node (Multiple Choice)"));
 
-            this.AddManipulator(CreateGroupContextualMenu());
+            //this.AddManipulator(CreateGroupContextualMenu());
         }
 
         IManipulator CreateNodeContextualMenu(DialogueSystemNodeType type, string menuTitle)
         {
             var manipulator = new ContextualMenuManipulator(
-                menuEvent => menuEvent.menu.AppendAction(menuTitle, action => AddElement(CreateNode(type, action.eventInfo.localMousePosition)))
+                menuEvent => menuEvent.menu.AppendAction(menuTitle, action => AddElement(CreateNode(type, action.eventInfo.mousePosition)))
             );
             return manipulator;
         }
@@ -65,8 +64,8 @@ namespace DS
 
         public DialogueSystemNode CreateNode(string nodeName, DialogueSystemNodeType dialogueType, Vector2 position, bool shouldDraw = true)
         {
-            var nodeType = Type.GetType($"DS.DialogueSystem{dialogueType}Node");
-            var node = (DialogueSystemNode)Activator.CreateInstance(nodeType);
+            var nodeType = System.Type.GetType($"DS.DialogueSystem{dialogueType}Node");
+            var node = (DialogueSystemNode)System.Activator.CreateInstance(nodeType);
 
             node.Initialize(this, position);
 
@@ -135,8 +134,8 @@ namespace DS
         void AddStyles()
         {
             this.AddStyleSheets(
-                "Packages/com.akiyakun.simpletalk/Editor/StyleSheet/DialogueSystemGraphView.uss",
-                "Packages/com.akiyakun.simpletalk/Editor/StyleSheet/DialogueSystemNodeView.uss");
+                "Packages/com.akiyakun.dialoguesystem/Editor/StyleSheet/DialogueSystemGraphView.uss",
+                "Packages/com.akiyakun.dialoguesystem/Editor/StyleSheet/DialogueSystemNodeView.uss");
         }
 
         public void ClearGraph()
@@ -249,7 +248,7 @@ namespace DS
 
                 if (changes.elementsToRemove != null)
                 {
-                    Type edgeType = typeof(Edge);
+                    System.Type edgeType = typeof(Edge);
                     foreach (var element in changes.elementsToRemove)
                     {
                         if (element.GetType() != edgeType)

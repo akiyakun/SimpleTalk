@@ -1,6 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "TextDataScriptableObject", menuName = "Scriptable Objects/TextDataScriptableObject")]
+[System.Serializable]
 public class TextDataScriptableObject : ScriptableObject, DS.IDialogueContent
 {
     [System.Serializable]

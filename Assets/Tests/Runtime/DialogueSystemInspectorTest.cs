@@ -12,7 +12,7 @@ namespace DS.Test
     {
         GameObject canvas;
         GameObject obj;
-        DialogueSystemInspector inspector;
+        DialogueSystemViewGroup viewGroup;
 
         [SetUp]
         public void Setup()
@@ -20,18 +20,18 @@ namespace DS.Test
             // CanvasとUIの生成
             canvas = new GameObject("Canvas", typeof(Canvas));
             canvas.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
-            obj = new GameObject("DialogueSystem", typeof(DialogueSystemInspector));
+            obj = new GameObject("DialogueSystem", typeof(DialogueSystemViewGroup));
             obj.transform.SetParent(canvas.transform);
-            inspector = obj.GetComponent<DialogueSystemInspector>();
+            viewGroup = obj.GetComponent<DialogueSystemViewGroup>();
 
             // TMP_Text初期化
             var dialogueTextObj = new GameObject("DialogueText");
             var dialogueTMP = dialogueTextObj.AddComponent<TextMeshProUGUI>();
             dialogueTMP.text = "";
-            dialogueTextObj.transform.SetParent(inspector.transform);
-            typeof(DialogueSystemInspector)
+            dialogueTextObj.transform.SetParent(viewGroup.transform);
+            typeof(DialogueSystemView)
                 .GetField("dialogueText", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-                ?.SetValue(inspector, dialogueTMP);
+                ?.SetValue(viewGroup, dialogueTMP);
 
             // ChoiceTextList初期化
             var choiceList = new List<TMP_Text>();
@@ -39,17 +39,17 @@ namespace DS.Test
             {
                 var choice = new GameObject("ChoiceText" + i).AddComponent<TextMeshProUGUI>();
                 choice.text = "";
-                choice.transform.SetParent(inspector.transform);
+                choice.transform.SetParent(viewGroup.transform);
                 choiceList.Add(choice);
             }
-            typeof(DialogueSystemInspector)
+            typeof(DialogueSystemView)
                 .GetField("choiceTextList", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-                ?.SetValue(inspector, choiceList);
+                ?.SetValue(viewGroup, choiceList);
 
             // WaitTime
-            typeof(DialogueSystemInspector)
+            typeof(DialogueSystemView)
                 .GetField("toNextWaitTime", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-                ?.SetValue(inspector, 0.1f);
+                ?.SetValue(viewGroup, 0.1f);
         }
 
         [TearDown]
@@ -77,9 +77,9 @@ namespace DS.Test
             scriptable.NodeList = new List<DialogueSystemNodeSaveData> { node };
 
             // ScriptableObject
-            typeof(DialogueSystemInspector)
+            typeof(DialogueSystemView)
                 .GetField("dialogueData", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-                ?.SetValue(inspector, scriptable);
+                ?.SetValue(viewGroup, scriptable);
 
             var contentProvider = new DialogueContentProvider(new Dictionary<string, string>
             {
@@ -88,11 +88,11 @@ namespace DS.Test
                 { "choice2", "Option B" }
             });
 
-            inspector.Initialize(contentProvider);
+            viewGroup.Initialize(contentProvider);
             yield return new WaitForSeconds(2f);
 
-            Assert.IsTrue(inspector.IsInited);
-            Assert.IsTrue(inspector.GetComponentsInChildren<TextMeshProUGUI>().Length > 0);
+            Assert.IsTrue(viewGroup.IsInited);
+            Assert.IsTrue(viewGroup.GetComponentsInChildren<TextMeshProUGUI>().Length > 0);
         }
 
         [UnityTest]
@@ -113,9 +113,9 @@ namespace DS.Test
             scriptable.NodeList = new List<DialogueSystemNodeSaveData> { node };
 
             // ScriptableObject
-            typeof(DialogueSystemInspector)
+            typeof(DialogueSystemView)
                 .GetField("dialogueData", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-                ?.SetValue(inspector, scriptable);
+                ?.SetValue(viewGroup, scriptable);
 
             var contentProvider = new DialogueContentProvider(new Dictionary<string, string>
             {
@@ -128,12 +128,12 @@ namespace DS.Test
             bool startEventFired = false;
             bool endEventFired = false;
             bool refreshEventFired = false;
-            inspector.TextStartEvent = () => startEventFired = true;
-            inspector.TextEndEvent = () => endEventFired = true;
-            inspector.RefreshChoiceWitchCountEvent = (count) => refreshEventFired = true;
+            //viewGroup.TextStartEvent = () => startEventFired = true;
+            //viewGroup.TextEndEvent = () => endEventFired = true;
+            //viewGroup.RefreshChoiceWitchCountEvent = (count) => refreshEventFired = true;
 
-            inspector.Initialize(contentProvider);
-            inspector.StartDialogueFromBegin();
+            viewGroup.Initialize(contentProvider);
+            viewGroup.StartDialogueFromBegin();
             yield return new WaitForSeconds(2f);
 
             Assert.IsTrue(startEventFired);
@@ -159,9 +159,9 @@ namespace DS.Test
             scriptable.NodeList = new List<DialogueSystemNodeSaveData> { node };
 
             // ScriptableObject
-            typeof(DialogueSystemInspector)
+            typeof(DialogueSystemView)
                 .GetField("dialogueData", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-                ?.SetValue(inspector, scriptable);
+                ?.SetValue(viewGroup, scriptable);
 
             var contentProvider = new DialogueContentProvider(new Dictionary<string, string>
             {
@@ -169,26 +169,26 @@ namespace DS.Test
                 { "choice1", "Option A" },
                 { "choice2", "Option B" }
             });
-            inspector.Initialize(contentProvider);
+            viewGroup.Initialize(contentProvider);
 
             // Event
             bool startEventFired = false;
             bool endEventFired = false;
-            inspector.TextStartEvent = () => startEventFired = true;
-            inspector.TextEndEvent = () => endEventFired = true;
+            //viewGroup.TextStartEvent = () => startEventFired = true;
+            //viewGroup.TextEndEvent = () => endEventFired = true;
 
             // Act
-            inspector.StartDialogueFromBegin();
+            viewGroup.StartDialogueFromBegin();
             yield return new WaitForSeconds(2f);
 
             // Assert
             Assert.IsTrue(startEventFired);
             Assert.IsTrue(endEventFired);
-            Assert.IsTrue(inspector.GetComponentsInChildren<TextMeshProUGUI>().Length > 0);
+            Assert.IsTrue(viewGroup.GetComponentsInChildren<TextMeshProUGUI>().Length > 0);
 
-            var choices = (List<TMP_Text>)typeof(DialogueSystemInspector)
+            var choices = (List<TMP_Text>)typeof(DialogueSystemView)
                 .GetField("choiceTextList", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-                ?.GetValue(inspector);
+                ?.GetValue(viewGroup);
 
             Assert.AreEqual("Option A", choices[0].text);
             Assert.AreEqual("Option B", choices[1].text);

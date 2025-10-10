@@ -76,6 +76,7 @@ namespace DS
                 nodeSaveData.Initialize(
                     id: node.Id,
                     characterId: node.CharacterId,
+                    textBoxIndex: node.TextBoxIndex,
                     textKey: node.TextKey,
                     isStartingDialogue: node.IsStartingNode,
                     nodeType: node.NodeType,
@@ -112,6 +113,7 @@ namespace DS
                 Name = node.DialogueName,
                 ChoiceList = choices,
                 CharacterId = node.CharacterId,
+                TextBoxIndex = node.TextBoxIndex,
                 TextKey = node.TextKey,
                 Text = node.Text,
                 NodeType = node.NodeType,
@@ -127,6 +129,7 @@ namespace DS
             var nodeView = new DialogueSystemNodeEditorSaveData();
             nodeView.Id = node.Id;
             nodeView.CharacterId = node.CharacterId;
+            nodeView.TextBoxIndex = node.TextBoxIndex;
             nodeView.TextKey = node.TextKey;
             nodeView.Text = node.Text;
             nodeView.NodeType = node.NodeType;
@@ -186,6 +189,7 @@ namespace DS
                 node.Id = nodeData.Id;
                 node.ChoiceList = choices;
                 node.CharacterId = nodeData.CharacterId;
+                node.TextBoxIndex = nodeData.TextBoxIndex;
                 node.TextKey = nodeData.TextKey;
                 node.Text = nodeData.Text;
                 if (nodeData.IsStartingNode)

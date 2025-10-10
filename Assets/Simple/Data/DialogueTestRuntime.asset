@@ -15,38 +15,75 @@ MonoBehaviour:
   FileName: DialogueTestRuntime
   NodeList:
   - Id: 57a36897-e0c0-47dd-95fb-d0046333738b
-    CharacterId: 01
+    CharacterId: 001
+    TextBoxIndex: 0
     TextKey: TXT_0000
     IsStartingDialogue: 1
     NodeType: 1
     ChoiceList:
-    - NextNodeId: cf930e7a-ea8d-4e6c-8e7c-87a80a35714b
+    - NextNodeId: 0d49694c-77a7-4526-a22f-fc5071413e7d
       TextKey: TXT_1000
       Text: New Choice Text
-    - NextNodeId: de8cff85-2626-4fe0-94b9-c45f727e6365
+    - NextNodeId: c9551cfb-6626-4273-84cc-16871f6c1ac8
       TextKey: TXT_1001
       Text: New Choice Text
   - Id: c9551cfb-6626-4273-84cc-16871f6c1ac8
-    CharacterId: 01
-    TextKey: TXT_0001
+    CharacterId: 001
+    TextBoxIndex: 0
+    TextKey: TXT_0002
+    IsStartingDialogue: 0
+    NodeType: 0
+    ChoiceList:
+    - NextNodeId: 8f0f048f-7c29-4815-8726-464f59d2af99
+      TextKey: Next Dialogue
+      Text: 
+  - Id: ce938cd3-0ef5-40da-b4fb-bc672de9e584
+    CharacterId: 001
+    TextBoxIndex: 0
+    TextKey: TXT_0003
     IsStartingDialogue: 0
     NodeType: 0
     ChoiceList:
     - NextNodeId: 
       TextKey: Next Dialogue
       Text: 
-  - Id: cf930e7a-ea8d-4e6c-8e7c-87a80a35714b
-    CharacterId: 02
-    TextKey: TXT_0002
+  - Id: fa5000de-9db6-4992-9c95-71e01d32a031
+    CharacterId: 001
+    TextBoxIndex: 0
+    TextKey: TXT_0000
     IsStartingDialogue: 0
     NodeType: 0
     ChoiceList:
-    - NextNodeId: c9551cfb-6626-4273-84cc-16871f6c1ac8
-      TextKey: TXT_1002
+    - NextNodeId: 
+      TextKey: Next Dialogue
       Text: 
-  - Id: de8cff85-2626-4fe0-94b9-c45f727e6365
-    CharacterId: 02
-    TextKey: TXT_0003
+  - Id: 0d49694c-77a7-4526-a22f-fc5071413e7d
+    CharacterId: 001
+    TextBoxIndex: 0
+    TextKey: TXT_0001
+    IsStartingDialogue: 0
+    NodeType: 0
+    ChoiceList:
+    - NextNodeId: ce938cd3-0ef5-40da-b4fb-bc672de9e584
+      TextKey: Next Dialogue
+      Text: 
+  - Id: 8f0f048f-7c29-4815-8726-464f59d2af99
+    CharacterId: 001
+    TextBoxIndex: 0
+    TextKey: TXT_0004
+    IsStartingDialogue: 0
+    NodeType: 1
+    ChoiceList:
+    - NextNodeId: 359f42e9-1f0c-48ae-be2e-eaa2b3ce0eca
+      TextKey: TXT_1001
+      Text: New Choice Text
+    - NextNodeId: fa5000de-9db6-4992-9c95-71e01d32a031
+      TextKey: TXT_1002
+      Text: New Choice Text
+  - Id: 359f42e9-1f0c-48ae-be2e-eaa2b3ce0eca
+    CharacterId: 001
+    TextBoxIndex: 0
+    TextKey: TXT_0005
     IsStartingDialogue: 0
     NodeType: 0
     ChoiceList:

@@ -1,10 +1,7 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using UnityEditor;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEditor.Experimental.GraphView;
 
 namespace DS
 {
@@ -12,9 +9,11 @@ namespace DS
     {
         public string Id { get; set; }
         public string CharacterId { get; set; }
+        public int TextBoxIndex { get; set; }
         public string DialogueName { get; set; }
         public string TextKey { get; set; }
         public string Text { get; set; }
+        //public LocalizedString m_StringReference { get; set; }
         public bool IsStartingNode { get; private set; }
         public List<DialogueSystemChoiceSaveData> ChoiceList { get; set; }
         public DialogueSystemNodeType NodeType { get; set; }
@@ -36,7 +35,7 @@ namespace DS
 
         public virtual void Initialize(DialogueSystemGraphView dsGraphView, Vector2 position)
         {
-            Id = Guid.NewGuid().ToString();
+            Id = System.Guid.NewGuid().ToString();
             DialogueName = "New Name";
             Text = "New Text";
             IsStartingNode = false;
@@ -69,6 +68,13 @@ namespace DS
             var customDataContainer = new VisualElement();
             customDataContainer.AddToClassList("ds-node__custom-data-container");
             var textFoldout = DialogueSystemElementUtility.CreateFoldout("Dialogue Text");
+            var textboxIndexField = DialogueSystemElementUtility.CreateTextField(TextBoxIndex.ToString(), "Text Box Index:", (callback) =>
+            {
+                if (int.TryParse(callback.newValue, out int result))
+                {
+                    TextBoxIndex = result;
+                }
+            });
             var characterIdField = DialogueSystemElementUtility.CreateTextField(CharacterId, "Character ID:", (callback) =>
             {
                 CharacterId = callback.newValue;
@@ -77,6 +83,8 @@ namespace DS
             {
                 TextKey = callback.newValue;
             });
+            textboxIndexField.AddToClassList("ds-node__text-field");
+            customDataContainer.Add(textboxIndexField);
             characterIdField.AddToClassList("ds-node__text-field");
             customDataContainer.Add(characterIdField);
             textField.AddToClassList("ds-node__text-field");
@@ -102,12 +110,6 @@ namespace DS
                 //}
             }
         }
-
-        //public bool IsStartingNode()
-        //{
-        //    Port inputPort = (Port)inputContainer.Children().First();
-        //    return !inputPort.connected;
-        //}
 
         public void SetStartingNodeStyle()
         {

@@ -10,6 +10,7 @@ namespace DS
         [HideInInspector][SerializeField] public string Id;
         [HideInInspector][SerializeField] public string Name;
         [SerializeField] public string CharacterId;
+        [SerializeField] public int TextBoxIndex;
         [SerializeField] public string TextKey;
         [SerializeField] public string Text;
         [SerializeField] public bool IsStartingNode;
